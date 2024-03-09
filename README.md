@@ -24,5 +24,5 @@ use `qemu-system-i386 -drive format=raw,file="AcidOS.img"`
 # 🤝 Contribute
 For those who want to contribute to AcidOS, you can help me starring/forking this project or help with code using pull requests.
 
-# Resources
+# 🗂️ Resources
 - FAT: https://wiki.osdev.org/FAT#Reading_the_Boot_Sector
