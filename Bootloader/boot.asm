@@ -1,9 +1,6 @@
 [BITS    16]
 [ORG 0x7C00]
 
-%define KERNELLOCAL 0x7E00
-%define KERNELSCTRS 0x0008
-
 jmp short bootmain
 nop
 
