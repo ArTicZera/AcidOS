@@ -59,5 +59,7 @@ bootmain:
 
 bootmsg: db "Booted from floppy...", 0x0A, 0x0A, 0x0D, 0x00
 
+kernelfile: db "KERNEL  BIN"
+
 times 510 - ($ - $$) db 0x00
 dw 0xAA55
