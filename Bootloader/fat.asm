@@ -39,3 +39,18 @@
 ;3 - Search the next component from the path in the directory, and read it
 
 ;4 - Repeat until reaching and reading the file
+
+LoadRootDir:
+        ;RootDirSize (AX) = Entries * 32 (Entry size)
+        xor     dx, dx
+        mov     ax, 0x20
+        mul     word [RootDirEntries]
+
+        ;RootDirSectors (AX) = RootDirSize / BytesPerSectors
+        xor     dx, dx
+        div     word [BytesPerSectors]
+
+        ;CX = Root Dir Sectors
+        xchg    ax, cx
+
+        ret
