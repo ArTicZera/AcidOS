@@ -10,6 +10,8 @@ ReadSectors:
         push    cx
         push    dx
 
+        call    LBAtoCHS
+
         mov     ah, 0x02
         int     0x13
 
@@ -20,37 +22,33 @@ ReadSectors:
         ret
 
 ;in: AX = LBA Address
-;out: CH, DH, CL, DL = C, H, S, Device
+;out: CL, CH, DH = S, C, H
 LBAtoCHS:
         push    ax
         push    dx
+
+        xor     dx, dx
+        div     word [SectorsPerTrack]
         
-                ;AX = LBA / Sectors per track
-                ;DX = LBA % Sectors per track
-                xor     dx, dx
-                div     word [SectorsPerTrack]
+        ;S (CX) = (LBA % SPT) + 1
+        mov     cx, dx
+        inc     cx
 
-                ;CL = Sectors = DL + 1
-                mov     cl, dl
-                inc     cl
+        xor     dx, dx
+        div     word [HeadsOrSides]
 
-                ;AX = (LBA / Sectors per track) / Heads
-                ;DX = (LBA / Sectors per track) % Heads
-                xor     dx, dx
-                div     word [HeadsOrSides]
+        ;H (DH) = (LBA % SPT) % HPC
+        mov     dh, dl
 
-                mov     ah, dl ;Save DL (Head)
-                mov     ch, al ;AL = Cylinder
-        
-        pop     dx
+        ;C (CH) = (LBA % SPT) / HPC
+        mov     ch, al
+        shl     ah, 0x06
+        or      cl, ah
 
-                mov     dh, ah ;DH = Head
-        
         pop     ax
 
-        mov     dl, [DriveNumber]
+        mov     dl, al
 
-        ret
+        pop     dx
 
-CHStoLBA:
         ret
