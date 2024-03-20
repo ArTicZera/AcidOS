@@ -1,4 +1,4 @@
-# 🍃 About FolhaOS
+# 🍃 About AcidOS
 AcidOS is a small real mode operating system made in 8086 Assembly and C. This project is being developed as a way to learn more about OSs.
 
 # 🛠️ Current Progress
