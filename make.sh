@@ -1,7 +1,5 @@
 clear
 
-#export PATH="$PATH:/usr/bin/watcom/binl"
-
 BIN="Binaries"
 ACIDOSIMG="AcidOS.img"
 
