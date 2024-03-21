@@ -6,16 +6,15 @@ AcidOS is a small real mode operating system made in 8086 Assembly. This project
 - ✅ **Extended Boot Record**
 - ✅ **VESA Graphics**
 - ✅ **FAT12 Filesystem**
-- 🚧 **Bitmap fonts**
-- ❌ **C Kernel**
 - ❌ **Interrupts**
-- ❌ **Memory management**
 - ❌ **Timer**
 - ❌ **Shell**
-- ❌ **Graphical Interface (GUI)**
+- ❌ **Memory Management**
 
 # 🚀 Future Ideas
-- **C Kernel**
+- **C Library**
+- **Bitmap Fonts**
+- **GUI**
 
 # ⚙️ Building
 ### 🧰 Necessary Components
