@@ -30,4 +30,5 @@ For those who want to contribute to AcidOS, you can help me starring/forking thi
 
 # 🗂️ Resources
 - FAT: https://wiki.osdev.org/FAT#Reading_the_Boot_Sector
+- Reading from the disk: https://youtu.be/srbnMNk7K7k
 - LBA to CHS: http://www.osdever.net/tutorials/view/lba-to-chs
