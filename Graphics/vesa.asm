@@ -24,6 +24,7 @@ GetModeInfo:
 
 CheckMode:
         ;Check if its compatible
+
         cmp     [XResolution], word WSCREEN
         jne     VESAError
 
@@ -36,7 +37,7 @@ CheckMode:
         ret
 
 SetMode:
-        ;Set video mode to 640x480 8bpp
+        ;Set Video Mode
         mov     ax, 0x4F02
         mov     bx, VIDEOMODE
         int     0x10
