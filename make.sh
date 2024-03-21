@@ -5,10 +5,6 @@ clear
 BIN="Binaries"
 ACIDOSIMG="AcidOS.img"
 
-# Compile files
-#nasm -fbin Bootloader/boot.asm -o Binaries/boot.bin
-#nasm -fbin Kernel/kernel.asm -o Binaries/kernel.bin
-
 echo -e "\n\e[33;40mCompiling files!\e[0m\n"
 nasm -fbin Bootloader/boot.asm -o $BIN/boot.bin
 nasm -fbin Kernel/kernel.asm -o $BIN/kernel.bin
