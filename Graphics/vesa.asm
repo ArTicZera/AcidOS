@@ -14,7 +14,6 @@ SetupVESA:
         ret
 
 GetModeInfo:
-        ;Get Video Mode Info
         mov     di, VBEModeInfo
         mov     cx, VIDEOMODE
         mov     ax, 0x4F01
@@ -37,7 +36,6 @@ CheckMode:
         ret
 
 SetMode:
-        ;Set Video Mode
         mov     ax, 0x4F02
         mov     bx, VIDEOMODE
         int     0x10
