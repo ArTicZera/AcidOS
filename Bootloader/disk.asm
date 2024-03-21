@@ -1,54 +1,78 @@
 [BITS    16]
 
-;AL = Sectors to read
-;CH = Cylinder
-;DH = Head
-;CL = Sector
-;ES:BX = Point to buffer
-ReadSectors:
-        push    ax
-        push    cx
-        push    dx
-
-        call    LBAtoCHS
-
-        mov     ah, 0x02
-        int     0x13
-
-        pop     dx
-        pop     cx
-        pop     ax
-
-        ret
-
-;in: AX = LBA Address
-;out: CL, CH, DH = S, C, H
 LBAtoCHS:
         push    ax
         push    dx
 
         xor     dx, dx
         div     word [SectorsPerTrack]
-        
-        ;S (CX) = (LBA % SPT) + 1
+
+        ;Sector (CX) = (LBA % SectorsPerTrack) + 1
+        inc     dx
         mov     cx, dx
-        inc     cx
 
         xor     dx, dx
         div     word [HeadsOrSides]
 
-        ;H (DH) = (LBA % SPT) % HPC
+        ;Head (DH) = (LBA / SectorsPerTrack) % HeadsOrSides
         mov     dh, dl
 
-        ;C (CH) = (LBA % SPT) / HPC
+        ;Compute lower 8 bits cylinder
         mov     ch, al
         shl     ah, 0x06
         or      cl, ah
 
         pop     ax
 
+        ;Restore DL value
         mov     dl, al
 
-        pop     dx
+        pop     ax
+
+        ret
+    
+;-------------------------------------------------------------
+
+;OUT:
+;SectorsPerTrack
+;HeadsOrSides
+ReadDrive:
+        pusha
+
+        ;Read Drive Function
+        mov     ah, 0x08
+        int     0x13
+
+        and     cl, 0x3F
+        xor     ch, ch
+        mov     word [SectorsPerTrack], cx
+
+        inc     dh
+        mov     [HeadsOrSides], dh
+
+        popa
+
+        ret
+
+;-------------------------------------------------------------
+
+;IN:
+;AX = LBA Address
+;CL = Sectors to read
+;DL = Drive number
+;ES:BX = Buffer
+DiskRead:
+        pusha
+
+        push    cx
+
+        call    LBAtoCHS
+
+        pop     ax
+
+        mov     ah, 0x02
+        int     0x13
+
+        popa
 
         ret
