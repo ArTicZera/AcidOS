@@ -7,13 +7,18 @@ KernelMain:
         int     0x10
 
         mov     si, welcomemsg
-        mov     bl, 0x47
-        call    printstr
+        mov     al, 0x0E
+        call    PrintString
 
-        jmp     $
+        jmp     Shell
 
-welcomemsg: db "Welcome to AcidOS!", 0x0A, 0x0A, 0x0D, 0x00
+welcomemsg: db "Welcome to AcidOS!", 0x0F, 0x0F, 0x00
 
-%include "Graphics/print.asm"
+%include "Graphics/graphics.asm"
+%include "Font/ProggyCleanTT.asm"
+%include "Font/font.asm"
+%include "Drivers/keyboard.asm"
+%include "Shell/shell.asm"
+%include "Shell/commands.asm"
 
 times (510 * 60) - ($ - $$) db 0x00
