@@ -19,7 +19,8 @@ AcidOS is a small real mode operating system made in 8086 Assembly. This project
 ### 🧰 Necessary Components
 nasm
 ### 📄 Compiling
-Run the make.sh script using `./make.sh` to compile the OS!
+`chmod +x ./make.sh` <br />
+`./make.sh` 
 ### 🚀 Running
 use `qemu-system-i386 -drive format=raw,file="AcidOS.img"`
 
