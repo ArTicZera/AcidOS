@@ -20,5 +20,3 @@ welcomemsg: db "Welcome to AcidOS!", 0x0F, 0x0F, 0x00
 %include "Drivers/keyboard.asm"
 %include "Shell/shell.asm"
 %include "Shell/commands.asm"
-
-times (510 * 60) - ($ - $$) db 0x00
