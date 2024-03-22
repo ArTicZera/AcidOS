@@ -5,6 +5,7 @@ AcidOS is a small real mode operating system made in 8086 Assembly. This project
 - ✅ **BIOS Parameter Block**
 - ✅ **Extended Boot Record**
 - ✅ **FAT12 Filesystem**
+- ✅ **Bitmap Fonts**
 - ❌ **Interrupts**
 - ❌ **Timer**
 - ❌ **Shell**
@@ -12,7 +13,6 @@ AcidOS is a small real mode operating system made in 8086 Assembly. This project
 
 # 🚀 Future Ideas
 - **C Library**
-- **Bitmap Fonts**
 - **GUI**
 
 # ⚙️ Building
