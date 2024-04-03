@@ -18,5 +18,6 @@ welcomemsg: db "Welcome to AcidOS!", 0x0F, 0x0F, 0x00
 %include "Font/ProggyCleanTT.asm"
 %include "Graphics/print.asm"
 %include "Drivers/keyboard.asm"
+%include "Memory/mem.asm"
 %include "Shell/shell.asm"
 %include "Shell/commands.asm"
