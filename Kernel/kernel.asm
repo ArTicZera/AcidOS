@@ -25,3 +25,5 @@ welcomemsg: db "Welcome to AcidOS!", 0x0F, 0x0F, 0x00
 %include "FileSystem/fat.asm"
 %include "Shell/shell.asm"
 %include "Shell/commands.asm"
+
+RootDirBuffer:
