@@ -10,6 +10,8 @@ KernelMain:
         mov     al, 0x0E
         call    PrintString
 
+        call    LoadRootDir
+
         jmp     Shell
 
 welcomemsg: db "Welcome to AcidOS!", 0x0F, 0x0F, 0x00
@@ -19,5 +21,7 @@ welcomemsg: db "Welcome to AcidOS!", 0x0F, 0x0F, 0x00
 %include "Graphics/print.asm"
 %include "Drivers/keyboard.asm"
 %include "Memory/mem.asm"
+%include "FileSystem/disk.asm"
+%include "FileSystem/fat.asm"
 %include "Shell/shell.asm"
 %include "Shell/commands.asm"
