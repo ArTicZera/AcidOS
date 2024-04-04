@@ -99,7 +99,9 @@ RunCommand:
         jmp     $
 
 .exeDir:
-        ;call   PrintRootFiles
+        call    PrintRoot
+
+        dec     word [cursorY]
 
         popa
 
