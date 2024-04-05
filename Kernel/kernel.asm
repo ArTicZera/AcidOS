@@ -17,7 +17,7 @@ KernelMain:
 welcomemsg: db "Welcome to AcidOS!", 0x0F, 0x0F, 0x00
 
 %include "Graphics/graphics.asm"
-%include "Font/ProggyCleanTT.asm"
+%include "Font/isoFont.asm"
 %include "Graphics/print.asm"
 %include "Drivers/keyboard.asm"
 %include "Memory/mem.asm"
