@@ -241,7 +241,7 @@ SetupCursor:
         cmp     word [cursorX], 40
         jae      .nextCursorLine
 
-        cmp     word [cursorY], 25
+        cmp     word [cursorY], 11
         jae     .resetCursor
         
         jmp     SetupCursor.end
