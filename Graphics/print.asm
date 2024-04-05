@@ -20,7 +20,7 @@ DrawChar:
         ;Takes the index and multiply it by 8
         ;To adjust it as chars per screen
         shl     word [cursorX], 0x03
-        shl     word [cursorY], 0x03
+        shl     word [cursorY], 0x04
 
         ;Now CX and DX contains the result
         mov     cx, [cursorX]
@@ -110,7 +110,7 @@ PrintString:
 
                 ;CharBMP = ASCII * 0x08
                 mov     al, [si]
-                shl     ax, 0x03
+                shl     ax, 0x04
 
                 ;Save the result in BX
                 mov     bx, ax
@@ -126,7 +126,7 @@ PrintString:
                 push    si
 
                 ;FONT + CharBMP = CharBMP Index
-                mov     si, ProggyFont
+                mov     si, isoFont
                 add     si, bx
 
                 call    DrawChar
@@ -150,8 +150,7 @@ PrintString:
                 jmp     PrintString.end
 
         .endLine:
-                mov     word [cursorX], 0x00
-                inc     word [cursorY]
+                call    NextLine
 
                 jmp     .nextChar
 
@@ -171,9 +170,9 @@ PrintChar:
 
         xor     bx, bx
         mov     bl, al
-        shl     bx, 0x03
+        shl     bx, 0x04
 
-        mov     si, ProggyFont
+        mov     si, isoFont
         add     si, bx
 
         pop     bx
