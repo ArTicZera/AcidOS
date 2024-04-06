@@ -2,6 +2,7 @@
 
 SectorsPerTrack: dw 63
 HeadsOrSides:    dw 16
+DriveNumber:     db 0
 
 LBAtoCHS:
         push    ax
