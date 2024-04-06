@@ -2,6 +2,8 @@
 [ORG 0x0000]
 
 KernelMain:
+        mov     [DriveNumber], dl
+
         ;Set VGA Mode 13h
         mov     ax, 0x13
         int     0x10
