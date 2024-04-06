@@ -51,6 +51,12 @@ RunCommand:
         repe    cmpsb
         jcxz    .exeShutdown
 
+        mov     si, cmdbuffer
+        mov     di, run
+        mov     cx, 4
+        repe    cmpsb
+        jcxz    .exeRun
+
         call    NextLine
 
         mov     si, unknowncmd
@@ -99,7 +105,7 @@ RunCommand:
         jmp     $
 
 .exeDir:
-        call    PrintRoot
+        call   PrintRoot
 
         dec     word [cursorY]
 
@@ -139,6 +145,16 @@ RunCommand:
 
         jmp     $
 
+.exeRun:
+        mov     dword [retaddr], .exeRunReturn
+
+        call    FindProgram
+        
+.exeRunReturn:
+        popa
+
+        ret
+
 clear:    db "clear"
 waitkey:  db "waitkey"
 echo:     db "echo"
@@ -147,6 +163,7 @@ dir:      db "dir"
 showmem:  db "showmem"
 help:     db "help"
 shutdown: db "shutdown"
+run:      db "run"
 
 commands: db "clear    - Clear Screen", 0x0F
           db "waitkey  - Wait for key", 0x0F
@@ -154,6 +171,7 @@ commands: db "clear    - Clear Screen", 0x0F
           db "reboot   - Reboot the machine", 0x0F
           db "dir      - Show root directory files", 0x0F
           db "shutdown - Shutdown the machine", 0x0F
-          db "showmem  - Show extended memory", 0x00
+          db "showmem  - Show extended memory", 0x0F
+          db "run      - Run a program", 0x00
 
-data1:
+data:
