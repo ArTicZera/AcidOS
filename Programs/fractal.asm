@@ -1,8 +1,6 @@
 [BITS    16]
 [ORG 0x0100]
 
-[EXTERN retaddr]
-
 %define WSCREEN 320
 %define HSCREEN 200
 
