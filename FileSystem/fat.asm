@@ -1,11 +1,15 @@
 [BITS    16]
 
+%define PROGRAMSEGMNT 0x9000
+%define PROGRAMOFFSET 0x0100
+
 LoadRootDir:
         pusha
 
         mov     ax, 19
         mov     cl, al
         mov     bx, RootDirBuffer
+        mov     dl, [DriveNumber]
         call    DiskRead
 
         popa
@@ -90,3 +94,125 @@ PrintRoot:
 
 PrintRoot.end:
         ret
+
+;---------------------------------------------------
+
+FindProgram:
+        xor     bx, bx
+        mov     di, RootDirBuffer
+
+        .searchProgram:
+                mov     si, argbuffer
+                mov     cx, 8
+                push    di
+                repe    cmpsb
+                pop     di
+
+                je      .programFound
+
+                add     di, 0x20
+                inc     bx
+
+                cmp     bx, 0xE0
+                jl      .searchProgram
+
+                jmp     .programFail
+
+        .programFound:
+                ;Get first cluster
+                mov     ax, [di + 26]
+                mov     [programcluster], ax
+
+                ;Read FAT
+                mov     ax, 0x01
+                mov     bx, RootDirBuffer
+                mov     cl, 0x09
+                mov     dl, [DriveNumber]
+                call    DiskRead
+
+                call    RunProgram
+
+                ret
+
+.programFail:
+        call    NextLine
+
+        mov     si, PROGRAMFAIL
+        mov     al, 0x0C
+        call    PrintString
+
+        ret
+
+;---------------------------------------------------
+
+RunProgram:
+        ;Read Kernel and process FAT chain
+        mov     bx, PROGRAMSEGMNT
+        mov     es, bx
+        mov     bx, PROGRAMOFFSET
+
+        .kernelLoop:
+                ;Read next cluster
+                mov     ax, [programcluster]
+
+                mov     dl, [DriveNumber]
+                add     ax, 0x1F
+                mov     cl, 0x01
+                call    DiskRead
+
+                add     bx, 512
+
+                ;Get the location of the next cluster
+                mov     ax, [programcluster]
+                mov     cx, 0x03
+                mul     cx
+
+                mov     cx, 0x02
+                div     cx
+
+                ;AX = Index of entry in FAT
+                ;DX = Cluster % 2
+
+                ;Read entry from FAT table at index AX
+                mov     si, RootDirBuffer
+                add     si, ax
+                mov     ax, [ds:si]
+
+                or      dx, dx
+                jz      .even
+        
+        .odd:
+                shr     ax, 0x04
+                jmp     .nextCluster
+
+        .even:
+                and     ax, 0x0FFF
+
+        .nextCluster:
+                ;End of chain
+                cmp     ax, 0x0FF8
+                jae     .end
+
+                ;Loops again
+                mov     [programcluster], ax
+                jmp     .kernelLoop
+
+        .end:
+                mov     dl, [DriveNumber]
+
+                mov     ax, PROGRAMSEGMNT
+                mov     ds, ax
+                mov     es, ax
+
+                jmp     PROGRAMSEGMNT:PROGRAMOFFSET
+
+                cli
+                hlt
+
+;---------------------------------------------------
+
+PROGRAMFAIL: db "This program doesn't exist!", 0x00
+
+programcluster: dw 0x00
+
+retaddr: dd 0x00
