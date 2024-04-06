@@ -1,6 +1,8 @@
 [BITS    16]
 [ORG 0x0100]
 
+[EXTERN retaddr]
+
 %define WSCREEN 320
 %define HSCREEN 200
 
@@ -39,4 +41,12 @@ ProgramMain:
                 jmp     .palette
 
 .end:
-        jmp     0x0000:0x7C00
+        xor     ax, ax
+        int     0x16
+
+        mov     ax, 0x13
+        int     0x10
+
+        jmp     return
+
+%include "Programs/acidos.asm"
