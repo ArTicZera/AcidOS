@@ -116,7 +116,7 @@ ResetBuffer:
         ;Reset arg buffer
         mov     di, argbuffer
         mov     cx, BUFFSIZE/2
-        mov     al, 0x00
+        mov     al, 0x20
         rep     stosb
 
         popa
@@ -136,6 +136,6 @@ endl: db 0x0A, 0x0A, 0x0D
 localdir: db ">/", 0x00
 
 cmdbuffer: times BUFFSIZE db 0x00
-argbuffer: times BUFFSIZE / 2 db 0x00
+argbuffer: times BUFFSIZE / 2 db 0x20
 
 unknowncmd: db "Unknown command, please try again!", 0x00 
