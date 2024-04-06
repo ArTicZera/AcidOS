@@ -8,6 +8,10 @@ KernelMain:
         mov     ax, 0x13
         int     0x10
 
+        ;Reset Cursor
+        mov     word [cursorX], 0x00
+        mov     word [cursorY], 0x00
+
         mov     si, welcomemsg
         mov     al, 0x0E
         call    PrintString
