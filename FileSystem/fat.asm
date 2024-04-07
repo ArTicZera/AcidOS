@@ -214,5 +214,3 @@ RunProgram:
 PROGRAMFAIL: db "This program doesn't exist!", 0x00
 
 programcluster: dw 0x00
-
-retaddr: dd 0x00
