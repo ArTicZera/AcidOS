@@ -11,6 +11,7 @@ nasm -fbin Kernel/kernel.asm -o $BIN/kernel.bin
 
 echo -e "\n\e[33;40mCompiling programs!\e[0m\n"
 nasm -fbin Programs/fractal.asm -o $BIN/fractal.com
+nasm -fbin Programs/stars.asm   -o $BIN/stars.com
 
 echo -e "\e[33;40mMounting Image File!\e[0m\n"
 dd if=/dev/zero of=AcidOS.img bs=512 count=2880
@@ -18,7 +19,7 @@ mkfs.fat -F 12 -n "ACIDOS" AcidOS.img
 dd if=$BIN/boot.bin of=AcidOS.img conv=notrunc
 mcopy -i AcidOS.img $BIN/kernel.bin "::kernel.bin"
 mcopy -i AcidOS.img $BIN/fractal.com "::fractal.com"
-mcopy -i AcidOS.img test.txt "::test.txt"
+mcopy -i AcidOS.img $BIN/stars.com "::stars.com"
 
 if [ $? -eq 0 ]; then
     echo -e "\n\e[36;40mCompiled successfully!\e[0m\n"
