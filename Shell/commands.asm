@@ -146,8 +146,6 @@ RunCommand:
         jmp     $
 
 .exeRun:
-        mov     dword [retaddr], .exeRunReturn
-
         call    FindProgram
         
 .exeRunReturn:
