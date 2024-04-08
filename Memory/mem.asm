@@ -32,5 +32,4 @@ xmsfailed:
 
 ;----------------------------------------
 
-XMSOK: db "Total extended memory (kb): ", 0x00
-XMSFAIL: db "Failed to detect extended memory!", 0x00
+XMSFAIL: db "FAIL!", 0x00
