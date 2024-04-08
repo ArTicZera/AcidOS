@@ -1,56 +1,50 @@
 [BITS    16]
 [ORG 0x0100]
 
-[EXTERN retaddr]
-
 %define WSCREEN 320
 %define HSCREEN 200
 
 ProgramMain:
-        ;Set Pixel Function
-        mov     ah, 0x0C
+        push    0xA000
+        pop     es
 
-        ;X = 0, Y = 0
-        xor     cx, cx
+        xor     bp, bp
         xor     dx, dx
+        xor     di, di
 
         .palette:
-                push    cx
+                push    bp
 
-                ;AL = (X ^ Y) / 2
-                xor     cx, dx
-                mov     al, cl
+                xor     bp, dx
+                mov     bx, bp
+                mov     al, bl
                 shr     al, 0x01
 
-                pop     cx
+                pop     bp
 
         .draw:
-                cmp     cx, WSCREEN
+                cmp     bp, WSCREEN
                 jae     .nextLine
 
                 cmp     dx, HSCREEN
                 jae     .end
 
-                int     0x10
+                stosb
 
-                ;Next pixel
-                inc     cx
+                inc     bp
                 
                 jmp     .palette
 
         .nextLine:
-                ;X = 0, Y++
-                xor     cx, cx
+                xor     bp, bp
                 inc     dx
 
                 jmp     .palette
 
 .end:
-        ;Wait for key
         xor     ax, ax
         int     0x16
 
-        ;Clear Screen
         mov     ax, 0x13
         int     0x10
 
