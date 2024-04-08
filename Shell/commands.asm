@@ -151,18 +151,21 @@ RunCommand:
         inc     word [cursorY]
         mov     word [cursorX], 0x08
 
+        ;Kernel version
         mov     si, kernel
         call    PrintString
 
         inc     word [cursorY]
         mov     word [cursorX], 0x08
 
+        ;Resolution
         mov     si, resolu
         call    PrintString
 
         inc     word [cursorY]
         mov     word [cursorX], 0x08
 
+        ;Memory
         mov     si, memory
         call    PrintString
 
