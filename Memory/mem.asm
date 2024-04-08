@@ -1,5 +1,8 @@
 [BITS    16]
 
+;----------------------------------------
+
+;Detect Extended Memory
 DetectXMS:
         pusha
         
@@ -10,10 +13,6 @@ DetectXMS:
         int     0x15
 
         jc      xmsfailed
-
-        mov     si, XMSOK
-        mov     al, 74
-        call    PrintString
 
         mov     ax, bx
         call    PrintDec
@@ -30,6 +29,8 @@ xmsfailed:
         popa
 
         ret
+
+;----------------------------------------
 
 XMSOK: db "Total extended memory (kb): ", 0x00
 XMSFAIL: db "Failed to detect extended memory!", 0x00
