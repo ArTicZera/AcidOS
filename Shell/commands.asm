@@ -10,12 +10,6 @@ RunCommand:
         jcxz    .exeClear
 
         mov     si, cmdbuffer
-        mov     di, waitkey
-        mov     cx, 0x08
-        repe    cmpsb
-        jcxz    .exeWaitKey
-
-        mov     si, cmdbuffer
         mov     di, echo
         mov     cx, 0x05
         repe    cmpsb
@@ -32,12 +26,6 @@ RunCommand:
         mov     cx, 0x04
         repe    cmpsb
         jcxz    .exeDir
-
-        mov     si, cmdbuffer
-        mov     di, showmem
-        mov     cx, 0x08
-        repe    cmpsb
-        jcxz    .exeShowMem
 
         mov     si, cmdbuffer
         mov     di, help
@@ -57,6 +45,12 @@ RunCommand:
         repe    cmpsb
         jcxz    .exeRun
 
+        mov     si, cmdbuffer
+        mov     di, neofetch
+        mov     cx, 0x09
+        repe    cmpsb
+        jcxz    .exeNeofetch
+
         call    NextLine
 
         mov     si, unknowncmd
@@ -72,13 +66,6 @@ RunCommand:
         mov     word [cursorY], 0x00
 
         call    ClearScreen
-
-        popa
-
-        ret
-    
-.exeWaitKey:
-        call    ReadKey
 
         popa
 
@@ -108,14 +95,6 @@ RunCommand:
         call   PrintRoot
 
         dec     word [cursorY]
-
-        popa
-
-        ret
-
-.exeShowMem:
-        call    NextLine
-        call    DetectXMS
 
         popa
 
@@ -153,8 +132,50 @@ RunCommand:
 
         ret
 
+.exeNeofetch:
+        call    NextLine
+
+        mov     si, fetch
+        mov     al, 0x2B
+        call    PrintString
+
+        mov     al, 0x0F
+
+        sub     word [cursorY], 0x04
+        mov     word [cursorX], 0x08
+
+        ;System: AcidOS
+        mov     si, system
+        call    PrintString
+
+        inc     word [cursorY]
+        mov     word [cursorX], 0x08
+
+        mov     si, kernel
+        call    PrintString
+
+        inc     word [cursorY]
+        mov     word [cursorX], 0x08
+
+        mov     si, resolu
+        call    PrintString
+
+        inc     word [cursorY]
+        mov     word [cursorX], 0x08
+
+        mov     si, memory
+        call    PrintString
+
+        call    DetectXMS
+
+        mov     word [cursorX], 0x00
+        add     word [cursorY], 0x01
+
+        popa
+
+        ret
+
 clear:    db "clear"
-waitkey:  db "waitkey"
 echo:     db "echo"
 reboot:   db "reboot"
 dir:      db "dir"
@@ -162,14 +183,24 @@ showmem:  db "showmem"
 help:     db "help"
 shutdown: db "shutdown"
 run:      db "run"
+neofetch: db "neofetch"
 
 commands: db "clear    - Clear Screen", 0x0F
-          db "waitkey  - Wait for key", 0x0F
           db "echo     - Shows a text", 0x0F
           db "reboot   - Reboot the machine", 0x0F
           db "dir      - Show root directory files", 0x0F
           db "shutdown - Shutdown the machine", 0x0F
-          db "showmem  - Show extended memory", 0x0F
+          db "neofetch - Show system informations", 0x0F
           db "run      - Run a program", 0x00
 
-data:
+fetch: db "   #   ", 0x0F
+       db "  # #  ", 0x0F
+       db " #   # ", 0x0F
+       db "#     #", 0x0F
+       db " #   # ", 0x0F
+       db "  ###", 0x00
+
+system: db "System: AcidOS", 0x00
+kernel: db "Kernel version: 1.0", 0x00
+resolu: db "Resolution: 320x200", 0x00
+memory: db "Memory (kb): ", 0x00
