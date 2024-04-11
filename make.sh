@@ -24,7 +24,7 @@ mcopy -i AcidOS.img $BIN/stars.com "::stars.com"
 mcopy -i AcidOS.img $BIN/plasma.com "::plasma.com"
 mcopy -i AcidOS.img $BIN/fibo.com "::fibo.com"
 mcopy -i AcidOS.img $BIN/cube.com "::cube.com"
-mcopy -i AcidOS.img $BIN/cube.com "::doom.com"
+mcopy -i AcidOS.img $BIN/doom.com "::doom.com"
 
 if [ $? -eq 0 ]; then
     echo -e "\n\e[36;40mCompiled successfully!\e[0m\n"
