@@ -29,7 +29,6 @@ use `qemu-system-i386 -drive format=raw,file="AcidOS.img"`
 # 🤝 Contribute
 For those who want to contribute to AcidOS, you can help me starring/forking this project or help with code using pull requests.
 
-# 🗂️ Resources
-- FAT: https://wiki.osdev.org/FAT#Reading_the_Boot_Sector
-- Reading from the disk: https://youtu.be/srbnMNk7K7k
-- LBA to CHS: http://www.osdever.net/tutorials/view/lba-to-chs
+# 🌟 Credits
+Nikitpad - Originally made the cube
+Nanochess - Made the CubicDOOM
