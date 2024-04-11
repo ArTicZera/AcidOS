@@ -30,5 +30,5 @@ use `qemu-system-i386 -drive format=raw,file="AcidOS.img"`
 For those who want to contribute to AcidOS, you can help me starring/forking this project or help with code using pull requests.
 
 # 🌟 Credits
-Nikitpad - Originally made the cube
+Nikitpad - Originally made the cube <br />
 Nanochess - Made the CubicDOOM
