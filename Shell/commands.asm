@@ -141,7 +141,7 @@ RunCommand:
 
         mov     al, 0x0F
 
-        sub     word [cursorY], 0x04
+        sub     word [cursorY], 0x05
         mov     word [cursorX], 0x08
 
         ;System: AcidOS
@@ -151,25 +151,28 @@ RunCommand:
         inc     word [cursorY]
         mov     word [cursorX], 0x08
 
-        ;Kernel version
         mov     si, kernel
         call    PrintString
 
         inc     word [cursorY]
         mov     word [cursorX], 0x08
 
-        ;Resolution
         mov     si, resolu
         call    PrintString
 
         inc     word [cursorY]
         mov     word [cursorX], 0x08
 
-        ;Memory
         mov     si, memory
         call    PrintString
 
         call    DetectXMS
+
+        inc     word [cursorY]
+        mov     word [cursorX], 0x08
+
+        mov     si, vendor
+        call    PrintString
 
         mov     word [cursorX], 0x00
         add     word [cursorY], 0x01
