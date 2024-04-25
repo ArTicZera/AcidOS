@@ -29,6 +29,7 @@ welcomemsg: db "Welcome to AcidOS!", 0x0F, 0x0F, 0x00
 %include "Memory/mem.asm"
 %include "FileSystem/disk.asm"
 %include "FileSystem/fat.asm"
+%include "CPU/cpu.asm"
 %include "Shell/shell.asm"
 %include "Shell/commands.asm"
 
