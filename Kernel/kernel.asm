@@ -8,6 +8,8 @@ KernelMain:
         mov     ax, 0x13
         int     0x10
 
+        call    GetCPUInfo
+
         ;Reset Cursor
         mov     word [cursorX], 0x00
         mov     word [cursorY], 0x00
